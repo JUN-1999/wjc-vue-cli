@@ -39,6 +39,7 @@ module.exports = {
         new ProgressBarPlugin({
             format: ` build [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
         }),
+
     ],
     module: {
         rules: [
@@ -77,9 +78,13 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                // 排除node_modules中的js
+                //使用include来指定编译文件夹
+                include: path.resolve(__dirname, '../src'),
+                //使用exclude排除指定文件夹
                 exclude: /node_modules/,
                 use: [
+                    'cache-loader', // 缓存资源，提高二次打包速度
+                    'thread-loader', // 多线程打包，提高打包速度
                     'babel-loader'
                 ],
             },

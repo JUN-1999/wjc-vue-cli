@@ -6,11 +6,11 @@ const webpack = require('webpack')
 
 module.exports = merge(base, {
     mode: 'development',
-    //   development：使用eval-cheap-module-source-map模式，能具体定位到源码位置和源码展示，适合开发模式，体积较小
+    // source-map的作用是：方便你报错的时候能定位到错误代码的位置。 =====  development：使用eval-cheap-module-source-map模式，能具体定位到源码位置和源码展示，适合开发模式，体积较小
     devtool: 'eval-cheap-module-source-map',
     devServer: {
         open: true,
-        // hot: true,
+        hot: true, // 热更新
     },
     plugins: [
         // 定义全局变量
@@ -23,5 +23,6 @@ module.exports = merge(base, {
                 },
             },
         }),
+        new webpack.HotModuleReplacementPlugin(), // 热更新
     ]
 })
